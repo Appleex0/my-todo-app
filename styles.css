@@ -1,0 +1,277 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.main-container {
+  color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.main-container.dark {
+  background-color: rgb(32, 32, 32);
+  color: wheat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.darkORlight {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+.container {
+  text-align: center;
+  border: 2px solid gray;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+}
+
+.head-text {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(63, 63, 63);
+  cursor: default;
+  transition: color 0.5s ease;
+}
+
+.head-text.dark {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(196, 196, 196);
+  cursor: default;
+}
+
+.input input {
+  border-radius: 0.2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid gray;
+  padding: 0.6rem;
+  width: 60vh;
+  margin-right: 0.5rem;
+  box-shadow: 0 6px 15px rgba(137, 43, 226, 0.3);
+  transition: all 0.3s ease;
+}
+
+.input input:focus {
+  outline: none;
+}
+
+.input input:hover {
+  border: 1px solid gray;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(137, 43, 226, 0.3);
+}
+
+.input.dark input {
+  color: rgb(255, 255, 255);
+  background-color: rgb(65, 65, 65);
+  border-radius: 0.2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid gray;
+  padding: 0.6rem;
+  width: 60vh;
+  margin-right: 0.5rem;
+  box-shadow: 0 6px 15px rgba(40, 28, 209, 0.3);
+  transition: all 0.3s ease;
+}
+
+.input.dark input:focus {
+  outline: none;
+  background-color: rgb(85, 85, 85);
+  color: rgb(255, 255, 255);
+}
+
+.input.dark input:hover {
+  border: 1px solid gray;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(40, 28, 209, 0.3);
+}
+
+
+
+.btn {
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  background-color: blueviolet;
+  padding: 0.3rem 0.7rem;
+  border-radius: 1.2rem;
+  border: 2px solid blueviolet;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(137, 43, 226, 0.3);
+}
+
+.btn:hover {
+  background-color: rgb(200, 171, 226);
+  color: blueviolet;
+  box-shadow: 0 6px 15px rgba(137, 43, 226, 0.5);
+  transform: scale(1.05);
+}
+
+.btn.dark {
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(228, 228, 228);
+  background-color: rgb(41, 4, 143);
+  padding: 0.3rem 0.7rem;
+  border-radius: 1.2rem;
+  border: 2px solid rgb(18, 0, 121);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(12, 0, 182, 0.3);
+}
+
+.btn.dark:hover {
+  background-color: rgb(156, 161, 238);
+  color: rgb(2, 0, 100);
+  box-shadow: 0 6px 15px rgba(3, 8, 85, 0.5);
+  transform: scale(1.05);
+}
+
+.list-group {
+  margin-top: 2rem;
+}
+
+.li {
+  box-shadow: 0 6px 15px rgba(137, 43, 226, 0.3);
+  cursor: default;
+  margin: 0.5rem;
+  border: 0.1px solid gray;
+  border-radius: 0.4rem;
+  padding: 0.3rem;
+  padding-left: 1rem;
+  padding-right: 2rem;
+  font-size: 1.1rem;
+  color: rgb(58, 58, 58);
+  display: flex;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.li:hover {
+  transition: all 0.3s ease;
+  transform: scale(1.05);
+}
+
+.li:active {
+  transform: scale(1.05);
+}
+
+.li.dark {
+  box-shadow: 0 6px 15px rgba(17, 21, 235, 0.3);
+  cursor: default;
+  margin: 0.5rem;
+  border: 0.1px solid gray;
+  border-radius: 0.4rem;
+  padding: 0.3rem;
+  padding-left: 1rem;
+  padding-right: 2rem;
+  font-size: 1.1rem;
+  color: rgb(206, 206, 206);
+  display: flex;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.li.dark:hover {
+  transition: all 0.3s ease;
+  transform: scale(1.05);
+}
+
+.li.dark:active {
+  transform: scale(1.05);
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.actions a {
+  color: blueviolet;
+  transition: all 0.3s ease;
+}
+
+.actions a:hover {
+  transition: all 0.3s ease;
+  transform: scale(1.4);
+}
+
+.actions.dark {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.actions.dark a {
+  color: rgb(44, 13, 218);
+  transition: all 0.3s ease;
+}
+
+.actions.dark a:hover {
+  transition: all 0.3s ease;
+  transform: scale(1.4);
+}
+
+.renameInput {
+  font-size: 1.1rem;
+  border: none;
+  width: 20rem;
+  outline: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.renameInput:focus {
+  outline: none;
+}
+
+.renameInput.dark {
+  color: rgb(255, 255, 255);
+  background-color: rgb(32, 32, 32);
+  font-size: 1.1rem;
+  border: none;
+  width: 20rem;
+  outline: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.renameInput.dark:focus {
+  color: rgb(255, 255, 255);
+  background-color: rgb(32, 32, 32);
+  outline: none;
+}
+
+.error-message {
+  margin-top: 3rem;
+  color: rgb(255, 0, 0);
+  font-weight: 600;
+  cursor: default;
+  transition: all 0.5s ease;
+}
+
+.error-message p {
+  text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+  font-family: Arial, Helvetica, sans-serif;
+  transition: all 0.5s ease;
+}
