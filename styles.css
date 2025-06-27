@@ -25,7 +25,7 @@
   height: 100vh;
 }
 
-.darkORlight {
+.buttons {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -240,6 +240,7 @@
   width: 20rem;
   outline: none;
   font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .renameInput:focus {
@@ -274,4 +275,13 @@
   text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
   font-family: Arial, Helvetica, sans-serif;
   transition: all 0.5s ease;
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+}
+
+.fade-in.show {
+  opacity: 1;
 }

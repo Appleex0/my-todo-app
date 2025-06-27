@@ -3,14 +3,18 @@ const input = document.querySelector("#addTask");
 const addButton = document.querySelector("#addButton");
 const error = document.querySelector("#error");
 const main = document.querySelector(".main-container");
-const btn = document.querySelector("#lightButton");
+const btn = document.querySelector("#themeChange");
 const headText = document.querySelector(".head-text");
-const changeButton = document.querySelector("#lightButton");
+const themeChange = document.querySelector("#themeChange");
 const inputChange = document.querySelector("#input");
+const languageChange = document.querySelector("#languageChange");
 
 window.addEventListener("DOMContentLoaded", () => {
   Events();
   loadFromStorage();
+  loadLang();
+  loadTheme();
+  animationDom(themeChange)
 });
 
 function Events() {
@@ -20,7 +24,8 @@ function Events() {
       addTask();
     }
   });
-  lightButton.addEventListener("click", changeColor);
+  themeChange.addEventListener("click", changeColor);
+  languageChange.addEventListener("click", langSelector);
 }
 
 function loadFromStorage() {
@@ -52,10 +57,12 @@ function loadFromStorage() {
     span.appendChild(aDelete);
     li.appendChild(span);
     listGroup.appendChild(li);
+    animationDom(span)
+    animationDom(li)
 
     aDelete.addEventListener("click", deleteStorage);
     aRename.addEventListener("click", renameTask);
-    selectClass(span)
+    selectClass(span);
   });
 }
 
@@ -68,7 +75,12 @@ function addTask(e) {
   } else {
     if (cleanInput.length < 45) {
       if (cleanInput == "" || cleanInput == undefined) {
-        errorMessage("Please enter a task!");
+        if (localStorage.getItem("language") === "en") {
+          errorMessage("Please enter a task!");
+        } else {
+          errorMessage("Lütfen bir görev girin!");
+        }
+
       } else {
         addStorage(cleanInput);
         error.innerHTML = "";
@@ -102,11 +114,17 @@ function addTask(e) {
 
         aDelete.addEventListener("click", deleteStorage);
         aRename.addEventListener("click", renameTask);
-        selectClass(span)
-        selectClass(li)
+        selectClass(span);
+        selectClass(li);
+        animationDom(span)
+        animationDom(li)
       }
     } else {
-      errorMessage("Please enter a task with less than 45 characters!");
+      if (localStorage.getItem("language") === "en") {
+        errorMessage("Please enter a task with less than 45 characters!");
+      } else {
+        errorMessage("Lütfen 45 karakterden az bir görev girin!");
+      }
     }
   }
   e.preventDefault();
@@ -114,7 +132,8 @@ function addTask(e) {
 
 function errorMessage(msg) {
   error.innerHTML = msg;
-  setTimeout(() => (error.innerHTML = ""), 3000);
+  setTimeout(() => (error.innerHTML = ""), 5000);
+  animationDom(error)
 }
 
 function addStorage(text) {
@@ -162,24 +181,105 @@ function renameTask() {
     }
     localStorage.setItem("todos", JSON.stringify(todos));
   });
-  selectClass(renameInput)
+  selectClass(renameInput);
+  animationDom(renameInput)
 }
 
-const themeElements = [main, btn, addButton, headText, inputChange];
+const themeElements = [
+  main,
+  btn,
+  addButton,
+  headText,
+  inputChange,
+  languageChange,
+];
+
 function changeColor() {
   themeElements.forEach((el) => el.classList.toggle("dark"));
-  if (btn.classList.contains("dark")) {
+  const currentTheme = localStorage.getItem("theme") || "light";
+  let newTheme;
+  if (currentTheme === "light") {
     btn.innerHTML = `Light Mode`;
+    newTheme = "dark";
   } else {
     btn.innerHTML = `Dark Mode`;
+    newTheme = "light";
+  }
+  localStorage.setItem("theme", newTheme);
+  document.querySelectorAll(".actions, .renameInput, .li").forEach(selectClass);
+}
+
+function selectClass(element) {
+  if (main.classList.contains("dark")) {
+    element.classList.add("dark");
+  } else {
+    element.classList.remove("dark");
+  }
+}
+
+function loadTheme() {
+  const savedTheme = localStorage.getItem("theme") || "light";
+  if (savedTheme === "dark") {
+    themeElements.forEach((el) => el.classList.add("dark"));
+    btn.innerHTML = `Dark Mode`;
+  } else {
+    btn.innerHTML = `Light Mode`;
+    themeElements.forEach((el) => el.classList.remove("dark"));
   }
   document.querySelectorAll(".actions, .renameInput, .li").forEach(selectClass);
 }
 
-function selectClass(element){
-  if (main.classList.contains('dark')){
-    element.classList.add('dark')
-  }else{
-    element.classList.remove('dark')
+function loadLang() {
+  const savedLang = localStorage.getItem("language") || "en";
+  if (savedLang === "tr") {
+    turkishLanguage();
+  } else {
+    englishLanguage();
   }
+}
+
+function langSelector() {
+  const currentLang = localStorage.getItem("language") || "en";
+  let newLang;
+
+  if (currentLang === "en") {
+    newLang = "tr";
+    turkishLanguage();
+  } else {
+    newLang = "en";
+    englishLanguage();
+  }
+  languageChange.value = newLang;
+  localStorage.setItem("language", newLang);
+}
+
+const animElements = [languageChange, input, headText, addButton, inputChange]
+
+function turkishLanguage() {
+  animElements.forEach(el => {
+    animationDom(el);
+  });
+  languageChange.innerHTML = "English";
+  input.placeholder = "Görev girin...";
+  headText.innerHTML = "Yapılacaklar listesi";
+  addButton.innerHTML = "Görev Ekle";
+
+}
+
+function englishLanguage() {
+  animElements.forEach(el => {
+    animationDom(el);
+  });
+  languageChange.innerHTML = "Türkçe";
+  input.placeholder = "Input task...";
+  headText.innerHTML = "Todo App";
+  addButton.innerHTML = "Add todo";
+}
+
+
+function animationDom(element) {
+  element.classList.add('fade-in');
+  setTimeout(()=>{
+    element.classList.add('show');
+  }, 10);
 }
