@@ -14,7 +14,7 @@ window.addEventListener("DOMContentLoaded", () => {
   loadFromStorage();
   loadLang();
   loadTheme();
-  animationDom(themeChange)
+  animationDom(themeChange);
 });
 
 function Events() {
@@ -57,8 +57,8 @@ function loadFromStorage() {
     span.appendChild(aDelete);
     li.appendChild(span);
     listGroup.appendChild(li);
-    animationDom(span)
-    animationDom(li)
+    animationDom(span);
+    animationDom(li);
 
     aDelete.addEventListener("click", deleteStorage);
     aRename.addEventListener("click", renameTask);
@@ -71,7 +71,11 @@ function addTask(e) {
   let todos = JSON.parse(localStorage.getItem("todos")) || [];
   const alreadyInput = todos.some((todo) => todo === cleanInput);
   if (alreadyInput) {
-    errorMessage("This task is already available!");
+    if (localStorage.getItem("language") === "en") {
+      errorMessage("This task is already available!");
+    } else {
+      errorMessage("Bu görev zaten mevcut!");
+    }
   } else {
     if (cleanInput.length < 45) {
       if (cleanInput == "" || cleanInput == undefined) {
@@ -80,7 +84,6 @@ function addTask(e) {
         } else {
           errorMessage("Lütfen bir görev girin!");
         }
-
       } else {
         addStorage(cleanInput);
         error.innerHTML = "";
@@ -116,8 +119,8 @@ function addTask(e) {
         aRename.addEventListener("click", renameTask);
         selectClass(span);
         selectClass(li);
-        animationDom(span)
-        animationDom(li)
+        animationDom(span);
+        animationDom(li);
       }
     } else {
       if (localStorage.getItem("language") === "en") {
@@ -133,7 +136,7 @@ function addTask(e) {
 function errorMessage(msg) {
   error.innerHTML = msg;
   setTimeout(() => (error.innerHTML = ""), 5000);
-  animationDom(error)
+  animationDom(error);
 }
 
 function addStorage(text) {
@@ -182,7 +185,7 @@ function renameTask() {
     localStorage.setItem("todos", JSON.stringify(todos));
   });
   selectClass(renameInput);
-  animationDom(renameInput)
+  animationDom(renameInput);
 }
 
 const themeElements = [
@@ -253,21 +256,20 @@ function langSelector() {
   localStorage.setItem("language", newLang);
 }
 
-const animElements = [languageChange, input, headText, addButton, inputChange]
+const animElements = [languageChange, input, headText, addButton, inputChange];
 
 function turkishLanguage() {
-  animElements.forEach(el => {
+  animElements.forEach((el) => {
     animationDom(el);
   });
   languageChange.innerHTML = "English";
   input.placeholder = "Görev girin...";
   headText.innerHTML = "Yapılacaklar listesi";
   addButton.innerHTML = "Görev Ekle";
-
 }
 
 function englishLanguage() {
-  animElements.forEach(el => {
+  animElements.forEach((el) => {
     animationDom(el);
   });
   languageChange.innerHTML = "Türkçe";
@@ -276,10 +278,9 @@ function englishLanguage() {
   addButton.innerHTML = "Add todo";
 }
 
-
 function animationDom(element) {
-  element.classList.add('fade-in');
-  setTimeout(()=>{
-    element.classList.add('show');
+  element.classList.add("fade-in");
+  setTimeout(() => {
+    element.classList.add("show");
   }, 10);
 }
