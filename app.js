@@ -2,7 +2,7 @@ const listGroup = document.querySelector(".list-group");
 const input = document.querySelector("#addTask");
 const addButton = document.querySelector("#addButton");
 const error = document.querySelector("#error");
-const main = document.querySelector(".main-container");
+const body = document.querySelector(".body");
 const btn = document.querySelector("#themeChange");
 const headText = document.querySelector(".head-text");
 const themeChange = document.querySelector("#themeChange");
@@ -34,10 +34,13 @@ function loadFromStorage() {
   todos.forEach((text) => {
     const li = document.createElement("li");
     li.className = "li";
-    li.textContent = text;
 
     const span = document.createElement("span");
     span.className = "actions";
+
+    const textSpan = document.createElement("span");
+    textSpan.className = "li-text";
+    textSpan.textContent = text;
 
     const aDelete = document.createElement("a");
     aDelete.className = "delete";
@@ -55,6 +58,7 @@ function loadFromStorage() {
     aRename.appendChild(iRename);
     span.appendChild(aRename);
     span.appendChild(aDelete);
+    li.appendChild(textSpan);
     li.appendChild(span);
     listGroup.appendChild(li);
     animationDom(span);
@@ -91,7 +95,10 @@ function addTask(e) {
 
         const li = document.createElement("li");
         li.className = "li";
-        li.textContent = cleanInput;
+
+        const textSpan = document.createElement("span");
+        textSpan.className = "li-text";
+        textSpan.textContent = cleanInput;
 
         const span = document.createElement("span");
         span.className = "actions";
@@ -112,6 +119,7 @@ function addTask(e) {
         aRename.appendChild(iRename);
         span.appendChild(aRename);
         span.appendChild(aDelete);
+        li.appendChild(textSpan);
         li.appendChild(span);
         listGroup.appendChild(li);
 
@@ -119,6 +127,7 @@ function addTask(e) {
         aRename.addEventListener("click", renameTask);
         selectClass(span);
         selectClass(li);
+        selectClass(textSpan);
         animationDom(span);
         animationDom(li);
       }
@@ -156,40 +165,81 @@ function deleteStorage() {
 
 function renameTask() {
   const li = this.closest("li");
-  const text = li.firstChild.textContent.trim();
+  const oldText = li.firstChild.textContent.trim();
   const renameInput = document.createElement("input");
   renameInput.type = "text";
-  renameInput.value = text;
+  renameInput.value = oldText;
   renameInput.className = "renameInput";
   li.firstChild.replaceWith(renameInput);
   renameInput.focus();
 
   const saveIcon = document.createElement("a");
   const i = document.createElement("i");
-  const aRename = this;
-  const aDelete = li.querySelector(".delete");
   i.className = "fa-solid fa-floppy-disk";
   saveIcon.appendChild(i);
+
+  const aRename = this;
+  const aDelete = li.querySelector(".delete");
   aRename.replaceWith(saveIcon);
   aDelete.remove();
+
   saveIcon.addEventListener("click", function () {
-    let lastText = renameInput.value.trim();
-    saveIcon.replaceWith(aRename, aDelete);
-    li.firstChild.replaceWith(lastText);
-    renameInput.remove();
-    let todos = JSON.parse(localStorage.getItem("todos"));
-    const index = todos.indexOf(text);
-    if (index !== -1) {
-      todos[index] = lastText;
+    const newText = renameInput.value.trim();
+
+    if (newText === "") {
+      const lang = localStorage.getItem("language");
+      errorMessage(
+        lang === "en" ? "Please enter a task!" : "Lütfen bir görev girin!"
+      );
+      return;
     }
-    localStorage.setItem("todos", JSON.stringify(todos));
+
+    if (newText.length > 45) {
+      const lang = localStorage.getItem("language");
+      errorMessage(
+        lang === "en"
+          ? "Please enter a task with less than 45 characters!"
+          : "Lütfen 45 karakterden az bir görev girin!"
+      );
+      return;
+    }
+
+    if (newText === oldText) {
+      li.firstChild.replaceWith(document.createTextNode(oldText));
+      renameInput.remove();
+      saveIcon.replaceWith(aRename, aDelete);
+      return;
+    }
+
+    let todos = JSON.parse(localStorage.getItem("todos"));
+    const alreadyInput = todos.some((todo) => todo === newText);
+    if (alreadyInput) {
+      const lang = localStorage.getItem("language");
+      errorMessage(
+        lang === "en"
+          ? "This task is already available!"
+          : "Bu görev zaten mevcut!"
+      );
+      return;
+    }
+
+    li.firstChild.replaceWith(document.createTextNode(newText));
+    renameInput.remove();
+    saveIcon.replaceWith(aRename, aDelete);
+
+    const index = todos.indexOf(oldText);
+    if (index !== -1) {
+      todos[index] = newText;
+      localStorage.setItem("todos", JSON.stringify(todos));
+    }
   });
+
   selectClass(renameInput);
   animationDom(renameInput);
 }
 
 const themeElements = [
-  main,
+  body,
   btn,
   addButton,
   headText,
@@ -213,7 +263,7 @@ function changeColor() {
 }
 
 function selectClass(element) {
-  if (main.classList.contains("dark")) {
+  if (body.classList.contains("dark")) {
     element.classList.add("dark");
   } else {
     element.classList.remove("dark");
@@ -229,7 +279,9 @@ function loadTheme() {
     btn.innerHTML = `Light Mode`;
     themeElements.forEach((el) => el.classList.remove("dark"));
   }
-  document.querySelectorAll(".actions, .renameInput, .li").forEach(selectClass);
+  document
+    .querySelectorAll(".actions, .renameInput, .li, .textSpan")
+    .forEach(selectClass);
 }
 
 function loadLang() {

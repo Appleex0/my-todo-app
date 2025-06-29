@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-    <main class="main-container ">
-        <div class="buttons">
-            <button class="btn" id="themeChange" value="light">Dark Mode</button>
-            <button class="btn" id="languageChange" value="en">English</button>
-        </div>
-        <div class="container">
-            <h1 class="head-text ">Todo App</h1>
-            <div class="input" id="input">
-                <form action="" class="addTodo">
-                    <input id="addTask" type="text" placeholder="Input task...">
-                    <button class="btn" id="addButton">Add todo</button>
-                </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body class="body">
+    <main class="main-container">
+      <div class="buttons">
+        <button class="btn" id="themeChange" value="light">Dark Mode</button>
+        <button class="btn" id="languageChange" value="en">English</button>
+      </div>
+      <div class="container">
+        <h1 class="head-text">Todo App</h1>
+        <div class="input" id="input">
+          <form action="" class="addTodo">
+            <input id="addTask" type="text" placeholder="Input task..." />
+            <button class="btn" id="addButton">Add todo</button>
+            <div class="error-message">
+              <p id="error"></p>
             </div>
-            <div class="list">
-                <ul class="list-group">
-                    <!-- <li class="li">Todo <span class="actions"><a href="#"><i class="fa-solid fa-pen-to-square"></i></a><a href="#" id="delete"><i class="fa-solid fa-trash"></i></a></span></li>
+          </form>
+        </div>
+        <div class="list">
+          <ul class="list-group">
+            <!-- <li class="li">Todo <span class="actions"><a href="#"><i class="fa-solid fa-pen-to-square"></i></a><a href="#" id="delete"><i class="fa-solid fa-trash"></i></a></span></li>
                     <li class="li">Todo <span class="actions"><a href="#" id = 'rename'><i class="fa-solid fa-pen-to-square"></i></a><a href="#" id="delete"><i class="fa-solid fa-trash"></i></a></span></li>
                     <li class="li">Todo <span class="actions"><a href="#"><i class="fa-solid fa-pen-to-square"></i></a><a href="#" id="delete"><i class="fa-solid fa-trash"></i></a></span></li> -->
-                </ul>
-            </div>
-            <div class="error-message">
-                <p id="error"></p>
-            </div>
-            
+          </ul>
         </div>
+      </div>
     </main>
 
-
-
-
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
